@@ -1,7 +1,8 @@
-from sqlalchemy import insert, text, select
+from sqlalchemy import insert, text, select, bindparam
 
 from tutorial.working_with_metadata import User, engine, Address
 
+INSERT = ''
 # insert single
 stmt = insert(User).values(name='spongebob', fullname="Spongebob Squarepants")
 compiled = stmt.compile()
@@ -28,7 +29,6 @@ with engine.connect() as conn:
     for i in result:
         print(i)
 
-
 # insert ... from select
 select_stmt = select(User.id, User.name + "@aol.com")
 insert_stmt = insert(Address).from_select(
@@ -46,3 +46,21 @@ with engine.connect() as conn:
 # returning
 insert_stmt = insert(Address).returning(Address.id, Address.email_address)
 print(insert_stmt)
+
+# inserting related objects
+scalar_subquery = (
+    select(User.id).
+        where(User.name == bindparam('username')).
+        scalar_subquery()
+)
+
+with engine.connect() as conn:
+    result = conn.execute(
+        insert(Address).values(user_id=scalar_subquery),
+        [
+            {"username": 'spongebob', "email_address": "spongebob@sqlalchemy.org"},
+            {"username": 'sandy', "email_address": "sandy@sqlalchemy.org"},
+            {"username": 'sandy', "email_address": "sandy@squirrelpower.org"},
+        ]
+    )
+    conn.commit()
