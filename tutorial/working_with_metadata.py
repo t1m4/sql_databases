@@ -44,4 +44,5 @@ class Address(Base):
 
     def __repr__(self):
         return f"Address(id={self.id!r}, email_address={self.email_address!r})"
+
 Base.metadata.create_all(engine)
