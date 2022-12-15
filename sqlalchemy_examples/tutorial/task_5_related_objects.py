@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload, joinedload
 
-from tutorial.working_with_metadata import User, Address, engine
+from task_2_metadata import User, Address, engine
 
 u1 = User(name='pkrabs', fullname='Pearl Krabs')
 u2 = User(name='Ruslan', fullname='Ruslan Khamidullin')

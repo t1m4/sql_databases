@@ -1,10 +1,8 @@
 from sqlalchemy import select, text, and_, or_, func, union_all
 from sqlalchemy.orm import Session, aliased
 
-from tutorial.working_with_data_insert_core import INSERT
-from tutorial.working_with_metadata import User, engine, Address
+from task_2_metadata import User, engine, Address
 
-print(INSERT)
 # select with where and connection
 stmt = select(User).where(User.name == 'spongebob')
 with engine.connect() as conn:

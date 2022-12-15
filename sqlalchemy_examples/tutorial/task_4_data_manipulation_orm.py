@@ -1,7 +1,7 @@
 from sqlalchemy import select, update, delete
 from sqlalchemy.orm import Session
 
-from tutorial.working_with_metadata import User, engine
+from task_2_metadata import User, engine
 
 print('\n')
 with Session(engine) as session:

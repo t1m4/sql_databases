@@ -1,6 +1,7 @@
 from sqlalchemy import insert, text, select, bindparam
 
-from tutorial.working_with_metadata import User, engine, Address
+from task_2_metadata import User, engine, Address
+
 
 INSERT = ''
 # insert single
@@ -48,6 +49,7 @@ insert_stmt = insert(Address).returning(Address.id, Address.email_address)
 print(insert_stmt)
 
 # inserting related objects
+print("scalar_subquery")
 scalar_subquery = (
     select(User.id).
         where(User.name == bindparam('username')).

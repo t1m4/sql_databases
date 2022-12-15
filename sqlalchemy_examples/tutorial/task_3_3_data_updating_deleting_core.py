@@ -1,9 +1,7 @@
 from sqlalchemy import update, bindparam, delete
 
-from tutorial.working_with_data_insert_core import INSERT
-from tutorial.working_with_metadata import User, engine
+from task_2_metadata import User, engine
 
-print(INSERT)
 
 # Updating using update
 stmt = (
